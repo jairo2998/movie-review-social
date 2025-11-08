@@ -33,3 +33,4 @@ CREATE TABLE IF NOT EXISTS reviews (
     FOREIGN KEY (users_id) REFERENCES users(id),
     FOREIGN KEY (movies_id) REFERENCES movies(id)
 );
+
