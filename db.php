@@ -19,7 +19,7 @@ try {
     // --- 3. SE O BANCO NÃO EXISTIR (Erro 1049 - Unknown database) ---
     if ($e->getCode() === 1049) {
         
-        echo "Banco de dados '$db_name' não encontrado. Tentando criar e configurar...<br>";
+        // echo "Banco de dados '$db_name' não encontrado. Tentando criar e configurar...<br>";
 
         // Tenta conectar APENAS ao servidor MySQL
         try {
@@ -29,7 +29,7 @@ try {
             // Cria o banco de dados 'moviestar'
             $sql_create_db = "CREATE DATABASE IF NOT EXISTS $db_name";
             $conn->exec($sql_create_db);
-            echo "Banco de dados '$db_name' criado com sucesso.<br>";
+            // echo "Banco de dados '$db_name' criado com sucesso.<br>";
             
             // Re-conecta ao banco de dados recém-criado
             $conn = new PDO("mysql:host=$db_host;dbname=$db_name;charset=utf8", $db_user, $db_pass);
@@ -41,7 +41,7 @@ try {
             // Para executar múltiplas queries em um único string, o PDO precisa que você as execute
             // individualmente ou, de forma mais simples, usando o método exec() em um arquivo lido.
             if ($conn->exec($sql_schema) !== false) {
-                 echo "Tabelas criadas ou já existentes (schema.sql).<br>";
+                 // echo "Tabelas criadas ou já existentes (schema.sql).<br>";
             } else {
                  die("Erro ao executar script SQL.");
             }
