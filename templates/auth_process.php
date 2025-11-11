@@ -10,7 +10,7 @@
 
     // receive the form type
     $type = filter_input(INPUT_POST, "type");
-
+    
     // verify the form type
     if($type === "register"){
         $name = filter_input(INPUT_POST, "name");
@@ -48,5 +48,14 @@
             $message->setMessage("Por favor, preencha todos os campos!", "error", "back");
         }
     } else if($type === "login"){
-        // register user
+        $email = filter_input(INPUT_POST, "email");
+        $password = filter_input(INPUT_POST, "password");
+
+        if($userDAO->authenticateUser($email, $password)){
+            $message->setMessage("Seja bem-vindo!", "success", "../editprofile.php");
+        } else {
+            $message->setMessage("Usuário e/ou senha incorretos.", "error", "back");
+        }
+    } else {
+        $message->setMessage("Informações inválidas!", "error", "index.php");
     }
