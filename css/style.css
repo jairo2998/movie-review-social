@@ -24,7 +24,7 @@
     margin: 0 auto;
     background: #FFF;
     border-radius: 5px;
-    width: 50%;
+    width: 40%;
     margin-left: 180px;
 }
 
@@ -44,6 +44,8 @@
 }
 
 .navbar .nav-item .nav-link {
+    text-align: center;
+    font-size: 15px;
     color: #FFF;
     transition: .5s;
 }
@@ -258,6 +260,10 @@
 .form-btn:hover {
     background-color: transparent;
     color: #f5c518;
+}
+
+.card-btn {
+    margin-top: 15px;
 }
 
 /* Edit Profile */
