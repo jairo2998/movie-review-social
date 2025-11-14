@@ -251,15 +251,17 @@
     margin: 30px auto;
 }
 
-.form-btn {
+.form-btn {    
     color: #000;
     background-color: #f5c518;
     border: 2px solid #f5c518;
+
 }
 
 .form-btn:hover {
     background-color: transparent;
     color: #f5c518;
+   
 }
 
 .card-btn {

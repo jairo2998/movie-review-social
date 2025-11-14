@@ -44,12 +44,13 @@
 
         }
         public function update(User $user, $redirect = true){
+            
             $stmt = $this->conn->prepare("UPDATE users SET name = :name, lastname = :lastname, email = :email, password = :password, image = :image, bio = :bio, token = :token WHERE id = :id");
             $stmt->bindParam(":name", $user->name);
             $stmt->bindParam(":lastname", $user->lastname); 
             $stmt->bindParam(":email", $user->email);
             $stmt->bindParam(":password", $user->password);
-            $stmt->bindParam(":image", $user->image);
+            $stmt->bindParam(":image", $user->image);           
             $stmt->bindParam(":bio", $user->bio);
             $stmt->bindParam(":token", $user->token);
             $stmt->bindParam(":id", $user->id);
@@ -153,6 +154,9 @@
 
         }
         public function changePassword(User $user){
+
+
+            
 
         }
     }
