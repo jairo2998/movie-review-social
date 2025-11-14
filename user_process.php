@@ -7,12 +7,13 @@
 
     $message = new Message($BASE_URL); 
     $userDAO = new UserDAO($conn, $BASE_URL);
+    $user = new User();
     
 
     $type = filter_input(INPUT_POST, "type");
 
     if($type === "update") {
-        $user = new User();
+        
         $userData = $userDAO->verifyToken(true);
        // var_dump($userData); exit;
         $name = filter_input(INPUT_POST, "name");
@@ -67,10 +68,20 @@
 
         if(!empty($password)) {
 
-            // Atualizar senha
-            $userDAO->changePassword($password, $userData->id);
+            $password = filter_input(INPUT_POST, "password");
+            $confirmPassword = filter_input(INPUT_POST, "confirmpassword");
 
-            $message->setMessage("Senha alterada com sucesso!", "success", "editprofile.php");
+            if($password !== $confirmPassword) {
+                $message->setMessage("As senhas não coincidem!", "error", "editprofile.php");
+            }else {
+                $finalPassword = $user->generatePassword($password);
+                $user->password = $finalPassword;
+                $user->id = $userData->id;
+                $userDAO->changePassword($user);
+                
+            }   
+
+            
 
         } else {
             $message->setMessage("Por favor, insira uma nova senha!", "error", "editprofile.php");
