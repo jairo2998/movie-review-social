@@ -1,0 +1,75 @@
+<?php
+
+    require_once("globals.php");
+    require_once(ROOT_PATH . "db.php");
+    require_once(ROOT_PATH . "models/Movie.php");
+    require_once(ROOT_PATH . "models/Message.php");
+    require_once(ROOT_PATH . "dao/UserDAO.php");
+    require_once(ROOT_PATH . "dao/MovieDAO.php");
+
+    $message = new Message($BASE_URL); 
+    $userDao = new UserDAO($conn, $BASE_URL);
+
+    $type = filter_input(INPUT_POST, "type");
+
+    if($type === "create") {
+
+        $movie = new Movie();
+        $movieDao = new MovieDAO($conn, $BASE_URL);
+        $userDao = new UserDAO($conn, $BASE_URL);
+
+        // User data
+        $userData = $userDao->verifyToken(true);
+
+        // Movie data
+        $title = filter_input(INPUT_POST, "title");
+        $length = filter_input(INPUT_POST, "length");
+        $category = filter_input(INPUT_POST, "category");
+        $trailer = filter_input(INPUT_POST, "trailer");
+        $description = filter_input(INPUT_POST, "description");
+        $users_id = $userData->id;
+
+        if(!empty($title) && !empty($length) && !empty($category)) {
+            $movie->title = $title;
+            $movie->length = $length;
+            $movie->category = $category;
+            $movie->trailer = $trailer;
+            $movie->description = $description;
+            $movie->users_id = $users_id;
+
+            // Image upload
+            if(isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
+                $image = $_FILES["image"];          
+                $fileInfo = pathinfo($image["name"]);            
+                $extension = $fileInfo['extension'];
+                $allowedExtensions = ["jpg", "jpeg", "png"];
+                $jpgExtensions = ["jpg", "jpeg"];            
+
+                if (in_array($extension, $allowedExtensions)) {
+                        if(in_array($extension, $jpgExtensions)) {
+                            $imageFile = imagecreatefromjpeg($image["tmp_name"]);
+                        } else {
+                            $imageFile = imagecreatefrompng($image["tmp_name"]);
+                        }
+                        if($imageFile === false) {
+                            $message->setMessage("Arquivo de imagem inválido!", "error", "back");
+                        }
+
+                } else {
+                    $message->setMessage("Tipo inválido de imagem!", "error", "back");
+                }   
+                $imageName = $movie->imageGenerateName();
+                imagejpeg($imageFile, ROOT_PATH . "img/movies/" . $imageName, 100); 
+                $movie->image = $imageName;
+
+            } else {
+                $message->setMessage("Por favor, preencha os campos obrigatórios!", "error", "back"); 
+            }
+            
+            // Create movie
+            $movieDao->create($movie);
+
+        } else {
+            $message->setMessage("Informações inválidas!", "error", "index.php");
+        }
+    }
