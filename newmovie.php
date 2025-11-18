@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <label for="image">Imagem do Filme:</label>
-                    <input type="file" class="form-control-file" id="image" name="image" required>
+                    <input type="file" class="form-control-file" id="image" name="image">
                 </div>
                 <div class="form-group">
                     <label for="length">Duração do Filme:</label>
