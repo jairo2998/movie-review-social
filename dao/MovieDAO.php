@@ -35,7 +35,7 @@
         }
         public function getLatestMovies(){
             $movies = [];
-            $stmt = $this->conn->query("SELECT * FROM movies ORDER BY id DESC");
+            $stmt = $this->conn->query("SELECT * FROM movies ORDER BY id DESC LIMIT 10");
             $stmt->execute();
             if($stmt->rowCount() > 0){
                 $moviesArray = $stmt->fetchAll();
@@ -49,7 +49,7 @@
         }
         public function getMovieByCategory($category){
             $movies = [];
-            $stmt = $this->conn->prepare("SELECT * FROM movies WHERE category = :category ORDER BY id DESC");
+            $stmt = $this->conn->prepare("SELECT * FROM movies WHERE category = :category ORDER BY id DESC LIMIT 10");
             $stmt->bindParam(":category", $category);
             $stmt->execute();
             if($stmt->rowCount() > 0){

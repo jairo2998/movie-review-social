@@ -1,3 +1,8 @@
+    <?php
+        require_once(ROOT_PATH . "dao/UserDAO.php");
+        $userData = $userDAO->verifyToken(false);
+    ?>
+    
     <footer id="footer">
         <div id="social-container">
             <ul>
@@ -14,9 +19,11 @@
         </div>
         <div id="footer-links-container">
             <ul>
-                <li><a href="#">Adicionar filme</a></li>
+                <li><a href="<?= $BASE_URL ?>newmovie.php">Adicionar filme</a></li>
                 <li><a href="#">Adicionar crítica</a></li>
-                <li><a href="#">Entrar / Registrar</a></li>
+                <?php if(!$userData) : ?>
+                    <li><a href="<?= $BASE_URL ?>auth.php">Entrar / Registrar</a></li>
+                <?php endif; ?>
             </ul>
         </div>
         <p>&copy; 2025 - MovieStar</p>

@@ -166,6 +166,11 @@
     width: 100%;
 }
 
+#add-movie-container .card-btn{     
+    width: auto;
+}
+
+
 .card-btn:hover {
     background-color: transparent;
     color: #f5c518;
@@ -268,6 +273,7 @@
 .card-btn {
     margin-top: 15px;
 }
+
 
 /* Edit Profile */
 #profile-image-container {
@@ -433,8 +439,15 @@
     text-align: right;
 }
 
+#movies-dashboard {
+    color: #FFF;  
+ 
+}
+
+
 #movies-dashboard .table {
-    color: #FFF;
+    color: #FFF;  
+    
 }
 
 #movies-dashboard .table th {
@@ -445,6 +458,17 @@
     padding: 15px 0;
 }
 
+
+#movies-dashboard .table th,
+#movies-dashboard .table td {
+    background-color: #000 !important; 
+    color: #FFF;       
+}
+
+tbody tr td {
+    border: none;
+}
+ 
 .table-movie-title {
     color: #FFF;
     font-weight: bold;
