@@ -10,17 +10,15 @@
     $message = new Message($BASE_URL); 
     $userDao = new UserDAO($conn, $BASE_URL);
 
+    $movie = new Movie();
+    $movieDao = new MovieDAO($conn, $BASE_URL);
+     // User data
+    $userData = $userDao->verifyToken(true);
+    
+
     $type = filter_input(INPUT_POST, "type");
 
-    if($type === "create") {
-
-        $movie = new Movie();
-        $movieDao = new MovieDAO($conn, $BASE_URL);
-        $userDao = new UserDAO($conn, $BASE_URL);
-
-        // User data
-        $userData = $userDao->verifyToken(true);
-
+    if($type === "create") {   
         // Movie data
         $title = filter_input(INPUT_POST, "title");
         $length = filter_input(INPUT_POST, "length");
@@ -64,12 +62,25 @@
 
             } else {
                 $message->setMessage("Por favor, preencha os campos obrigatórios!", "error", "back"); 
-            }
-            
+            }            
             // Create movie
             $movieDao->create($movie);
 
         } else {
             $message->setMessage("Informações inválidas!", "error", "index.php");
         }
+    } else if($type === "delete") {
+        $id = filter_input(INPUT_POST, "id");
+
+        $movie = $movieDao->findById($id);
+        if($movie){
+            //check if yser owe the movie
+            if($movie->users_id === $userData->id){
+                $movieDao->destroy($movie->id);
+            }
+        } else{
+            $message->setMessage("Informações inválidas!", "error", "index.php");
+        }
+    } else {
+        $message->setMessage("Informações inválidas!", "error", "index.php");
     }
