@@ -41,7 +41,7 @@
                     </div>
                     <div class="form-group">
                         <label for="image">Imagem do Filme:</label>
-                        <input type="file" class="form-control-file" id="image" name="image">
+                        <input type="file" class="form-control-file" id="image" name="image" value="<?= $movie->image ?>">
                     </div>
                     <div class="form-group">
                         <label for="length">Duração do Filme:</label>
@@ -69,7 +69,7 @@
                         <label for="description">Descrição do Filme:</label>
                         <textarea class="form-control" id="description" name="description" rows="3" placeholder="Insira a descrição do filme"><?= $movie->description ?></textarea>
                     </div>
-                    <input type="submit" class="btn card-btn" value="Adicionar Filme">
+                    <input type="submit" class="btn card-btn" value="Editar Filme">
                 </form>
             </div>
             <div class="col-md-3">
