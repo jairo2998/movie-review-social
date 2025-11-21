@@ -1,0 +1,4 @@
+# Ignora todas as imagens de filmes
+/img/movies/*
+/img/users/*
+
