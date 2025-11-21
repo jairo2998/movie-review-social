@@ -90,6 +90,8 @@
         $description = filter_input(INPUT_POST, "description");
         $id = filter_input(INPUT_POST, "id");
 
+        
+
         $movieData = $movieDao->findById($id);
         if($movieData){
             //check if yser owe the movie
@@ -103,13 +105,17 @@
                     $movieData->trailer = $trailer;
                     $movieData->description = $description;
 
+                   
+
                     // Image upload
                     if(isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
                         $image = $_FILES["image"];          
                         $fileInfo = pathinfo($image["name"]);            
                         $extension = $fileInfo['extension'];
                         $allowedExtensions = ["jpg", "jpeg", "png"];
-                        $jpgExtensions = ["jpg", "jpeg"];            
+                        $jpgExtensions = ["jpg", "jpeg"];    
+                        
+                        
 
                         if (in_array($extension, $allowedExtensions)) {
                                 if(in_array($extension, $jpgExtensions)) {
